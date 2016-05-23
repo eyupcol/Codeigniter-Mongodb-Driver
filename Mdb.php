@@ -21,7 +21,7 @@ class Mdb implements MDatabase
     private $err = array();
     private $insertId;
     private $cursor;
-    
+
     private $queryOptions = array();
 
 
@@ -129,6 +129,36 @@ class Mdb implements MDatabase
             $this->errorLog();
         }
     }
+
+    /**
+    * Insert_batch || added by Bryup
+    * @Return integer number of inserted rows(documents)
+    */
+    public function insert_batch($collection, $data)
+    {
+      try {
+          if(!is_array($data)){
+              throw new Exception('Invalid data.');
+          }
+
+          $bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
+
+          foreach ($data as $documents) {
+            foreach ($documents as $doc) {
+              $bulk->insert($doc);
+            }
+          }
+
+          $this->conn->executeBulkWrite($this->dbname.'.'.$collection,$bulk);
+
+          return count($bulk);
+
+      } catch(Exception $e) {
+          $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Insert error)";
+          $this->errorLog();
+      }
+    }
+
 
     /**
      * @param $collection
