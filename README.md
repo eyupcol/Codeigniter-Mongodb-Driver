@@ -25,9 +25,7 @@ Examples:
     
 Insert a stack:
 
-Returns the number of documents inserted.
-
-    // $this->mdb->insert_batch("fruits",$data)
+    // $this->mdb->insert_batch("fruits",$data) // returns the number of documents inserted.
     
     $data = array(
 			array("name"=>"mango","amount"=>13,"color"=>"green"),
@@ -44,7 +42,7 @@ Returns the number of documents inserted.
    
 ### Update
 
-	// $this->mdb->update("collection",$data,$filter,$options=array('multi'=>true,'upsert'=>false));
+	// $this->mdb->update("collection",$data,$filter,$options=array('multi'=>true,'upsert'=>false)); // returns the number of documents updated.
 		
 	$data = array("amount"=>17,"color"=>"yellow","price"=>20.15);
 
@@ -52,9 +50,7 @@ Returns the number of documents inserted.
     
 ### Delete
 
-Returns the number of documents(rows) deleted.
-
-	// $this->mdb->delete("collection",array("_id"=>$id),$limit=0)
+	// $this->mdb->delete("collection",array("_id"=>$id),$limit=0) // returns the number of documents(rows) deleted
 	echo $this->mdb->delete("fruits",array('name'=>'plum')) . ' fruits deleted.'; // 2 fruits deleted.
 	echo $this->mdb->delete("fruits",array('name'=>'plum'),1) . ' fruits deleted.'; // 1 fruits deleted. // this will delete only 1 document/row.
 
