@@ -11,9 +11,9 @@ class Mdb implements MDatabase
 {
     private $host = 'localhost';
     private $port = '27017';
-    private $dbname = 'ci';
-    private $user = 'elma';
-    private $password = 'bry11';
+    private $dbname = '';
+    private $user = '';
+    private $password = '';
 
     private $connString = null;
 
