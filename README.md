@@ -10,5 +10,5 @@ Codeigniter 3.x Mongodb 3.x Driver (Php5 / Php7)
 
 Insert single document (row):
 
-    $this->mdb->insert('collection',$data=array());
+    $this->mdb->insert('collection',$data=array()); // returns boolean (true/false)
     $last_id = $this->mdb->insert_id();
