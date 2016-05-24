@@ -63,12 +63,9 @@ Delete all documents in a collection (empty table):
 Fetching all records from a collection:
 
 	$this->mdb->get('collection'); // returns all results
-	
 	$fruits = $this->mdb->get('fruits');
-
-        echo "The number of fruits " . $fruits->num_rows(). '<br>';
-
-        foreach ($fruits->result() as $fruit) {
+	echo "The number of fruits " . $fruits->num_rows(). '<br>';
+	foreach ($fruits->result() as $fruit) {
             echo $fruit->name .'<br>';
         }
         
