@@ -43,7 +43,7 @@ Returns the number of documents inserted.
     
 ### Delete
 
-Delete documents: <br> $this->mdb->delete("collection",array("_id"=>$id))
+Delete documents: <br> $this->mdb->delete("collection",array("_id"=>$id),$limit=0)
 
 Returns the number of documents(rows) deleted.
 
