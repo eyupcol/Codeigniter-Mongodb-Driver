@@ -11,9 +11,9 @@ class Mdb implements MDatabase
 {
     private $host = 'localhost';
     private $port = '27017';
-    private $dbname = '';
-    private $user = '';
-    private $password = '';
+    private $dbname = 'ci';
+    private $user = 'elma';
+    private $password = 'bry11';
 
     private $connString = null;
 
@@ -22,7 +22,7 @@ class Mdb implements MDatabase
     private $insertId;
     private $cursor;
 
-    private $qetOptions = array();
+    private $getOptions = array();
     private $where;
 
 
@@ -92,7 +92,7 @@ class Mdb implements MDatabase
     }
 
 
-    public function update($collection, $data, $filter, $options = array('multi' => false, 'upsert' => false))
+    public function update($collection, $data, $filter, $options = array('multi' => true, 'upsert' => false))
     {
         try {
 
@@ -100,12 +100,12 @@ class Mdb implements MDatabase
                 throw new Exception('Invalid data.');
             }
 
-            $bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
+            $bulk = new MongoDB\Driver\BulkWrite;
             $bulk->update($filter,array('$set'=>$data),$options);
 
-            $this->conn->executeBulkWrite($this->dbname.'.'.$collection,$bulk);
+            $result = $this->conn->executeBulkWrite($this->dbname.'.'.$collection,$bulk);
 
-            return TRUE;
+            return $result->getModifiedCount();
 
         } catch(Exception $e) {
             $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Update error)";
@@ -114,15 +114,15 @@ class Mdb implements MDatabase
     }
 
 
-    public function delete($collection,$filter,$deleteAll=false)
+    public function delete($collection,$filter=array(),$deleteAll=false)
     {
         try {
             $bulk = new MongoDB\Driver\BulkWrite;
             $bulk->delete($filter,['limit'=>$deleteAll]);
 
-            $this->conn->executeBulkWrite($this->dbname.'.'.$collection,$bulk);
+            $result = $this->conn->executeBulkWrite($this->dbname.'.'.$collection,$bulk);
 
-            return TRUE;
+            return $result->getDeletedCount();
 
         } catch(Exception $e) {
             $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Delete error)";
