@@ -74,15 +74,15 @@ Fetching all records from a collection:
         
         // result:
         The number of fruits 9
-	mango
-	lemon
-	melon
-	mushroom
-	pear
-	pineapple
-	plum
-	plum
-	fig
+        mango
+        lemon
+        melon
+        mushroom
+        pear
+        pineapple
+        plum
+        plum
+        fig
 	
 	
 
