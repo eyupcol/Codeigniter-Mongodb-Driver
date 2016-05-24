@@ -88,7 +88,7 @@ The number of results num_rows():
 
 	$this->mdb->get('collection')->num_rows(); // returns interger results number
 	
-#### Where:
+##### Where:
 
 	$this->mdb->where(array("color"=>"green"));
 	$results = $this->mdb->get('fruits')->results();
