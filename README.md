@@ -25,7 +25,7 @@ Examples:
     
 Insert a stack:
 
-Returns number of inserted documents.
+Returns the number of documents inserted.
 
     $data = array(
 			array("name"=>"mango","amount"=>13,"color"=>"green"),
@@ -45,7 +45,7 @@ Returns number of inserted documents.
 
 Delete documents:
 
-Returns number of deleted documents (rows).
+Returns the number of documents(rows) deleted.
 
 	echo $this->mdb->delete("fruits",array('name'=>'plum')) . ' fruits deleted.'; // 2 fruits deleted.
     
