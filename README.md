@@ -40,3 +40,12 @@ Returns number of inserted documents.
 		);
     echo $this->mdb->insert_batch("fruits",$data) . " fruits inserted."; // 9 fruits inserted.
     
+    
+### Delete
+
+Delete documents:
+
+Returns number of deleted documents (rows).
+
+	echo $this->mdb->delete("fruits",array('name'=>'plum')) . ' fruits deleted.'; // 12 fruits deleted.
+    
