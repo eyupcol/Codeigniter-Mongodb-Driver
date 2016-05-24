@@ -20,7 +20,7 @@ Examples:
     if($this->mdb->insert('fruits',array("name"=>"banana", "amount"=>50, "color"=>"yellow"))){
         echo "Inserted a new fruit with id: $this->mdb->insert_id()";
     }else{
-        echo "Cannot insert :(";
+        echo "Could not be inserted";
     }
     
 Insert a stack:
