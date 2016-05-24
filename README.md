@@ -48,4 +48,8 @@ Delete documents:
 Returns the number of documents(rows) deleted.
 
 	echo $this->mdb->delete("fruits",array('name'=>'plum')) . ' fruits deleted.'; // 2 fruits deleted.
+
+Delete all documents in a collection (empty table):
+
+	$this->mdb->delete("collection"); // to delete all fruits: $this->mdb->delete("fruits") this will delete all fruits..
     
