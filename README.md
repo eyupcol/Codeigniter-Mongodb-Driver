@@ -88,7 +88,7 @@ The number of results num_rows():
 
 	$this->mdb->get('collection')->num_rows(); // returns interger results number
 	
-Where:
+#### Where:
 
 	$this->mdb->where(array("color"=>"green"));
 	$results = $this->mdb->get('fruits')->results();
@@ -97,7 +97,7 @@ Where:
 	$results = $this->mdb->where(array("color"=>"green"))->get('fruits')->results();
 	
 	Greater than:
-	$this->mdb->where(array("color"=>"green","amount"=>['$gt'=>5])); // this retrieves only green and amount value greater than five.
+	$this->mdb->where(array("color"=>"green","amount"=>['$gt'=>5])); // this retrieves only fruits green and its amount value greater than five.
 	
 
 	
