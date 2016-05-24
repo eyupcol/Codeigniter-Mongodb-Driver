@@ -60,7 +60,7 @@ Delete all documents in a collection (empty table):
 
 ### Reading
 
-Fetching all records from a collection:
+##### Fetching all records from a collection:
 
 	$this->mdb->get('collection'); // returns all results
 	
@@ -84,7 +84,7 @@ Fetching all records from a collection:
         plum
         fig
         
-The number of results num_rows():
+##### The number of results num_rows():
 
 	$this->mdb->get('collection')->num_rows(); // returns interger results number
 	
