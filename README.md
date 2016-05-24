@@ -83,6 +83,21 @@ Fetching all records from a collection:
         plum
         plum
         fig
+        
+The number of results num_rows():
+
+	$this->mdb->get('collection')->num_rows(); // returns interger results number
+	
+Where:
+
+	$this->mdb->where(array("color"=>"green"));
+	$results = $this->mdb->get('fruits')->results();
+	
+	OR
+	$results = $this->mdb->where(array("color"=>"green"))->get('fruits')->results();
+	
+
+	
 	
 	
 
