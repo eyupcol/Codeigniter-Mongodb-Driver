@@ -23,3 +23,20 @@ Examples:
         echo "Cannot insert :(";
     }
     
+Insert a stack:
+
+Returns number of inserted documents.
+
+    $data = array(
+			array("name"=>"mango","amount"=>13,"color"=>"green"),
+			array("name"=>"lemon","amount"=>7,"color"=>"yellow"),
+			array("name"=>"melon","amount"=>2,"color"=>"yellow"),
+			array("name"=>"mushroom","amount"=>12,"color"=>"brown"),
+			array("name"=>"pear","amount"=>6,"color"=>"reddish"),
+			array("name"=>"pineapple","amount"=>8,"color"=>"darkgreen"),
+			array("name"=>"plum","amount"=>58,"color"=>"red"),
+			array("name"=>"plum","amount"=>7,"color"=>"green"),
+			array("name"=>"fig","amount"=>76,"color"=>"brown")
+		);
+    echo $this->mdb->insert_batch("fruits",$data) . " fruits inserted.";
+    
