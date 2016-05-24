@@ -22,7 +22,8 @@ class Mdb implements MDatabase
     private $insertId;
     private $cursor;
 
-    private $queryOptions = array();
+    private $qetOptions = array();
+    private $where;
 
 
     /**
@@ -77,7 +78,7 @@ class Mdb implements MDatabase
                 $this->insertId = $id;
             }
 
-            return $this;
+            return TRUE;
 
         } catch(Exception $e) {
             $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Insert error)";
@@ -104,14 +105,13 @@ class Mdb implements MDatabase
 
             $this->conn->executeBulkWrite($this->dbname.'.'.$collection,$bulk);
 
-            return $this;
+            return TRUE;
 
         } catch(Exception $e) {
             $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Update error)";
             $this->errorLog();
         }
-    }	:	MF TM TS DİL YGS
-
+    }
 
 
     public function delete($collection,$filter,$deleteAll=false)
@@ -122,7 +122,7 @@ class Mdb implements MDatabase
 
             $this->conn->executeBulkWrite($this->dbname.'.'.$collection,$bulk);
 
-            return $this;
+            return TRUE;
 
         } catch(Exception $e) {
             $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Delete error)";
@@ -169,11 +169,12 @@ class Mdb implements MDatabase
     public function query($collection,$filter=array(),$options=array())
     {
         try{
-            if(!is_array($options) || count($options) == 0){
-                if(!is_array($this->queryOptions)){
-                    $this->queryOptions = array();
-                }
-                $options = $this->queryOptions;
+            if(!is_array($filter)){
+              throw new Exception("Second parameter is not an array");
+            }
+
+            if(!is_array($options)){
+              throw new Exception("Third parameter is not an array");
             }
 
             $query = new MongoDB\Driver\Query($filter, $options);
@@ -184,6 +185,45 @@ class Mdb implements MDatabase
             $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Query error)";
             $this->errorLog();
         }
+    }
+
+    /**
+    * @param string $collection
+    * @param integer $start
+    * @param integer $limit
+    * @return $this
+    */
+    public function get($collection,$start=null,$limit=null)
+    {
+        try{
+            if(!is_array($this->where) || count($this->where) == 0){
+              $filter =  array();
+            }else{
+              $filter = $this->where;
+            }
+
+            if(!is_array($this->getOptions)){
+                $this->getOptions = array();
+            }
+
+            $query = new MongoDB\Driver\Query($filter, $this->getOptions);
+            $this->cursor = $this->conn->executeQuery($this->dbname.'.'.$collection, $query)->toArray();
+            return $this;
+        }catch (Exception $e)
+        {
+            $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Query error)";
+            $this->errorLog();
+        }
+    }
+
+    /**
+    * @param array $where
+    * @return $this
+    */
+    public function where($where=array())
+    {
+      $this->where = $where;
+      return $this;
     }
 
     /**
@@ -203,12 +243,16 @@ class Mdb implements MDatabase
     }
 
     /**
-     * @param integer $limit
-     * @return $this
-     */
-    public function limit($limit)
+    * @param integer $limit
+    * @param integer $offset
+    * @return $this
+    */
+    public function limit($limit,$offset=0)
     {
-        $this->queryOptions['limit'] = $limit;
+        $this->getOptions['limit'] = $limit;
+        if($offset > 0){
+          $this->getOptions['skip'] = $offset;
+        }
         return $this;
     }
 
@@ -218,7 +262,7 @@ class Mdb implements MDatabase
      */
     public function skip($skip)
     {
-        $this->queryOptions['skip'] = $skip;
+        $this->getOptions['skip'] = $skip;
         return $this;
     }
 
@@ -226,10 +270,22 @@ class Mdb implements MDatabase
      * @param array $sort
      * @return $this
      */
-    public function sort($sort)
+    public function order_by($sort)
     {
-        $this->queryOptions['sort'] = $sort;
+        $this->getOptions['sort'] = $sort;
         return $this;
+    }
+
+    /**
+     * @param array $col
+     * @return $this
+     */
+    public function select($col)
+    {
+      if(is_array($col)){
+        $this->getOptions['projection'] = $col;
+      }
+      return $this;
     }
 
 
