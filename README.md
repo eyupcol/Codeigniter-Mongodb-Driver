@@ -39,7 +39,14 @@ Returns the number of documents inserted.
 			array("name"=>"fig","amount"=>76,"color"=>"brown")
 		);
     echo $this->mdb->insert_batch("fruits",$data) . " fruits inserted."; // 9 fruits inserted.
-    
+   
+### Update
+
+	// $this->mdb->update("collection",$data,$filter,$options=array('multi'=>true,'upsert'=>false));
+		
+	$data = array("amount"=>17,"color"=>"yellow","price"=>20.15);
+
+	echo $this->mdb->update("fruits",$data,array("name"=>"lemon")) . " documents updated.";
     
 ### Delete
 
