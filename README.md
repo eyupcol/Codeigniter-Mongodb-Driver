@@ -47,5 +47,5 @@ Delete documents:
 
 Returns number of deleted documents (rows).
 
-	echo $this->mdb->delete("fruits",array('name'=>'plum')) . ' fruits deleted.'; // 12 fruits deleted.
+	echo $this->mdb->delete("fruits",array('name'=>'plum')) . ' fruits deleted.'; // 2 fruits deleted.
     
