@@ -23,7 +23,7 @@ Examples:
         echo "Could not be inserted";
     }
     
-Insert a stack:
+Insert a data set:
 
     // $this->mdb->insert_batch("fruits",$data) // returns the number of documents inserted.
     
