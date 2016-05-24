@@ -50,10 +50,9 @@ Returns the number of documents inserted.
     
 ### Delete
 
-Delete documents: <br> $this->mdb->delete("collection",array("_id"=>$id),$limit=0)
-
 Returns the number of documents(rows) deleted.
 
+	// $this->mdb->delete("collection",array("_id"=>$id),$limit=0)
 	echo $this->mdb->delete("fruits",array('name'=>'plum')) . ' fruits deleted.'; // 2 fruits deleted.
 	echo $this->mdb->delete("fruits",array('name'=>'plum'),1) . ' fruits deleted.'; // 1 fruits deleted. // this will delete only 1 document/row.
 
