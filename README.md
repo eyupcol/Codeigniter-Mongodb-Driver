@@ -8,6 +8,8 @@ Codeigniter 3.x Mongodb 3.x Driver (Php5 / Php7)
 </ol>
 ## Usage:
 
+### Insert
+
 Insert single document (row):
 
     $this->mdb->insert('collection',$data=array()); // returns boolean (true/false)
