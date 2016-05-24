@@ -96,6 +96,9 @@ Where:
 	OR
 	$results = $this->mdb->where(array("color"=>"green"))->get('fruits')->results();
 	
+	Greater than:
+	$this->mdb->where(array("color"=>"green","amount"=>['$gt'=>5])); // this retrieves only green and amount value greater than five.
+	
 
 	
 	
