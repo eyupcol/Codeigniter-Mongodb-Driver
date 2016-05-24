@@ -66,14 +66,14 @@ Fetching all records from a collection:
 	
 	$fruits = $this->mdb->get('fruits');
 
-        echo $fruits->num_rows(). '<br>';
+        echo "The number of fruits " . $fruits->num_rows(). '<br>';
 
         foreach ($fruits->result() as $fruit) {
             echo $fruit->name .'<br>';
         }
         
         // result:
-        9
+        The number of fruits 9
 	mango
 	lemon
 	melon
