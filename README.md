@@ -64,11 +64,25 @@ Fetching all records from a collection:
 
 	$this->mdb->get('collection'); // returns all results
 	
-	$results = $this->mdb->get('fruits');
-	$result_numbers = $resluts->num_rows();
-	foreach($results->result() as $result){
-		echo $result->name. "<br>";
-	}
+	$fruits = $this->mdb->get('fruits');
+
+        echo $fruits->num_rows(). '<br>';
+
+        foreach ($fruits->result() as $fruit) {
+            echo $fruit->name .'<br>';
+        }
+        
+        // result:
+        9
+	mango
+	lemon
+	melon
+	mushroom
+	pear
+	pineapple
+	plum
+	plum
+	fig
 	
 	
 
