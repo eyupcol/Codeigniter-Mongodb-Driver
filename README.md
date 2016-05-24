@@ -99,6 +99,14 @@ Delete all documents in a collection (empty table):
 	Greater than:
 	$this->mdb->where(array("color"=>"green","amount"=>['$gt'=>5])); // this retrieves only fruits green and its amount value greater than five.
 	
+	
+##### Limit
+limit($limit,$offset=0) $limit: the number of results will be shown, $offset: the number of documents to skip before returning
+
+	$this->mdb->limit(10);
+	$this->mdb->limit(10,20);
+	$this->mdb->limit(10,20)->get('collection') // 
+	
 
 	
 	
