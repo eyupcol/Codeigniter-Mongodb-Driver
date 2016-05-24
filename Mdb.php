@@ -144,14 +144,12 @@ class Mdb implements MDatabase
           $bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
 
           foreach ($data as $documents) {
-            foreach ($documents as $doc) {
-              $bulk->insert($doc);
-            }
+            $bulk->insert($documents);
           }
 
-          $this->conn->executeBulkWrite($this->dbname.'.'.$collection,$bulk);
+          $result = $this->conn->executeBulkWrite($this->dbname.'.'.$collection,$bulk);
 
-          return count($bulk);
+          return $result->getInsertedCount();
 
       } catch(Exception $e) {
           $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Insert error)";
