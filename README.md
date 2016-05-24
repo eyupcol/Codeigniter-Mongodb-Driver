@@ -57,4 +57,18 @@ Insert a data set:
 Delete all documents in a collection (empty table):
 
 	$this->mdb->delete("collection"); // to delete all fruits: $this->mdb->delete("fruits") this will delete all fruits..
-    
+
+### Reading
+
+Fetching all records from a collection:
+
+	$this->mdb->get('collection'); // returns all results
+	
+	$results = $this->mdb->get('fruits');
+	$result_numbers = $resluts->num_rows();
+	foreach($results->result() as $result){
+		echo $result->name. "<br>";
+	}
+	
+	
+
