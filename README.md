@@ -27,6 +27,8 @@ Insert a stack:
 
 Returns the number of documents inserted.
 
+    // $this->mdb->insert_batch("fruits",$data)
+    
     $data = array(
 			array("name"=>"mango","amount"=>13,"color"=>"green"),
 			array("name"=>"lemon","amount"=>7,"color"=>"yellow"),
