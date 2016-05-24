@@ -48,6 +48,7 @@ Delete documents: <br> $this->mdb->delete("collection",array("_id"=>$id),$limit=
 Returns the number of documents(rows) deleted.
 
 	echo $this->mdb->delete("fruits",array('name'=>'plum')) . ' fruits deleted.'; // 2 fruits deleted.
+	echo $this->mdb->delete("fruits",array('name'=>'plum'),1) . ' fruits deleted.'; // 1 fruits deleted. // this will delete only 1 document/row.
 
 Delete all documents in a collection (empty table):
 
