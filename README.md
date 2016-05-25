@@ -115,6 +115,11 @@ limit($limit,$offset=0) $limit: the number of results will be shown, $offset: th
 	$this->mdb->order_by(array('id'=>-1, 'price'=>-1));
 	
 ##### Select
+If you want to select some field from your collection, you can use select() function.
+	
+	$this->mdb->select($fields);
+	$this->mdb->select(array('name','price','amount'));
+	
 
 	
 	
