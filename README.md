@@ -101,11 +101,22 @@ Delete all documents in a collection (empty table):
 	
 	
 ##### Limit
+
 limit($limit,$offset=0) $limit: the number of results will be shown, $offset: the number of documents to skip before returning
 
 	$this->mdb->limit(10);
 	$this->mdb->limit(10,20);
-	$this->mdb->limit(10,20)->get('collection') // 
+	$this->mdb->limit(10,20)->get('collection');
+
+##### Order By
+
+	$this->mdb->order_by(array('field'=>'sorttype')); // sorting type: descending sort = 1, ascending sort = -1
+	$this->mdb->order_by(array('name'=>1));
+	$this->mdb->order_by(array('id'=>-1, 'price'=>-1));
+	
+##### Select
+
+	
 	
 
 	
