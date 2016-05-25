@@ -27,10 +27,10 @@ class Mdb implements MDatabase
 
 
     /**
-     * @param array $settings
+     * 
      *
      */
-    public function __construct($settings=null){
+    public function __construct(){
         $CI =& get_instance();
         $CI->config->load('mongo');
         $settings = $CI->config->item('mongo');
