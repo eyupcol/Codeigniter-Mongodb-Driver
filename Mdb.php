@@ -9,11 +9,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Mdb implements MDatabase
 {
-    private $host = 'localhost';
-    private $port = '27017';
-    private $dbname = '';
-    private $user = '';
-    private $password = '';
+    private $host;
+    private $port;
+    private $dbname;
+    private $user;
+    private $password;
 
     private $connString = null;
 
@@ -31,6 +31,9 @@ class Mdb implements MDatabase
      *
      */
     public function __construct($settings=null){
+        $CI =& get_instance();
+        $CI->config->load('mongo');
+        $settings = $CI->config->item('mongo');
         if(isset($settings) && is_array($settings)){
             foreach($settings as $k=>$v){
                 $this->{$k} = $v;
