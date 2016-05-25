@@ -121,6 +121,26 @@ If you want to select some field from your collection, you can use select() func
 	$this->mdb->select(array('name','price','amount'));
 	
 
+##### Mixed Examples:
+
+	$this->mdb->select('*');
+	$this->mdb->limit(10);
+	$this->mdb->skip(20);
+	$this->mdb->where(array('$or'=>array(['color'=>'green'],['color'=>'red']),'name'=>'mango','amount'=>['$lt'=>5]));
+	$this->mdb->order_by(array('amount'=>-1));
+	$results = $this->mdb->get('fruits');
+	$num_rows = $results->num_rows();
+	$fruits = $results->result();
+	
+	OR
+	
+	$fruits = $this->mdb->select(['name','color'])->limit(10,20)->where(['color'=>'yellow'])->order_by(['price'=>-1])->get('fruits')->result();
+	
+	foreach($fruits as $fruit)
+	{
+		echo 'name: '. $fruit->name . ' color: '. $fruit->color . '<br>';
+	}
+	
 	
 	
 
