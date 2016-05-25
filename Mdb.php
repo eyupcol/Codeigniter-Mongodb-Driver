@@ -36,7 +36,7 @@ class Mdb implements MDatabase
         $settings = $CI->config->item('mongo');
         if(isset($settings) && is_array($settings)){
             foreach($settings as $k=>$v){
-                $this->{$k} = $v;
+                $this->{$k} = trim($v);
             }
         }
         $this->connect();
