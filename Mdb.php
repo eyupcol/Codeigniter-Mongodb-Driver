@@ -26,10 +26,6 @@ class Mdb implements MDatabase
     private $where;
 
 
-    /**
-     * 
-     *
-     */
     public function __construct(){
         $CI =& get_instance();
         $CI->config->load('mongo');
@@ -57,6 +53,9 @@ class Mdb implements MDatabase
         }
     }
 
+    /**
+     * If you have access permission on the $db, you can change your db
+     */
     public function selectDb($db)
     {
         $this->dbname = $db;
