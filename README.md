@@ -16,24 +16,21 @@ Codeigniter 3.x Mongodb 3.x Driver (Php5 / Php7)
 
 ### Insert
 
-Insert single document (row):
+##### Insert single document (row):
 
     $this->mdb->insert('collection',$data=array()); // returns boolean (true/false)
     $last_id = $this->mdb->insert_id();
-    
-Examples:
-    
+    Examples:
     if($this->mdb->insert('fruits',array("name"=>"banana", "amount"=>50, "color"=>"yellow"))){
         echo "Inserted a new fruit with id: $this->mdb->insert_id()";
     }else{
         echo "Could not be inserted";
     }
     
-Insert a data set:
+##### Insert a data set:
 
-    // $this->mdb->insert_batch("fruits",$data) // returns the number of documents inserted.
-    
-    $data = array(
+     // $this->mdb->insert_batch("fruits",$data) // returns the number of documents inserted.
+     $data = array(
 			array("name"=>"mango","amount"=>13,"color"=>"green"),
 			array("name"=>"lemon","amount"=>7,"color"=>"yellow"),
 			array("name"=>"melon","amount"=>2,"color"=>"yellow"),
@@ -44,7 +41,7 @@ Insert a data set:
 			array("name"=>"plum","amount"=>7,"color"=>"green"),
 			array("name"=>"fig","amount"=>76,"color"=>"brown")
 		);
-    echo $this->mdb->insert_batch("fruits",$data) . " fruits inserted."; // 9 fruits inserted.
+      echo $this->mdb->insert_batch("fruits",$data) . " fruits inserted."; // 9 fruits inserted.
    
 ### Update
 
