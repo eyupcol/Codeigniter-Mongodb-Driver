@@ -55,6 +55,8 @@ class Mdb implements MDatabase
 
     /**
      * If you have access permission on the $db, you can change your db
+     * @param string $db
+     * @return $this
      */
     public function selectDb($db)
     {
@@ -62,6 +64,11 @@ class Mdb implements MDatabase
         return $this;
     }
 
+    /**
+     * @param string $collection
+     * @param array $data
+     * $return TRUE/show error
+     */
     public function insert($collection,$data)
     {
         try {
