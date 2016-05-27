@@ -9,6 +9,11 @@ Codeigniter 3.x Mongodb 3.x Driver (Php5 / Php7)
 </ol>
 ## Usage:
 
+### Switch between databases
+    
+    $this->mdb->selectDb($db);
+	
+
 ### Insert
 
 Insert single document (row):
