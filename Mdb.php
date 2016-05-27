@@ -49,7 +49,7 @@ class Mdb
             return $this;
         } catch (Exception $e) {
             $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Connection error)";
-            $this->errorLog();
+            $this->err_handler();
         }
     }
 
@@ -91,7 +91,7 @@ class Mdb
 
         } catch(Exception $e) {
             $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Insert error)";
-            $this->errorLog();
+            $this->err_handler();
         }
     }
 
@@ -118,7 +118,7 @@ class Mdb
 
         } catch(Exception $e) {
             $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Update error)";
-            $this->errorLog();
+            $this->err_handler();
         }
     }
 
@@ -135,7 +135,7 @@ class Mdb
 
         } catch(Exception $e) {
             $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Delete error)";
-            $this->errorLog();
+            $this->err_handler();
         }
     }
 
@@ -162,7 +162,7 @@ class Mdb
 
       } catch(Exception $e) {
           $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Insert error)";
-          $this->errorLog();
+          $this->err_handler();
       }
     }
 
@@ -190,7 +190,7 @@ class Mdb
         }catch (Exception $e)
         {
             $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Query error)";
-            $this->errorLog();
+            $this->err_handler();
         }
     }
 
@@ -219,7 +219,7 @@ class Mdb
         }catch (Exception $e)
         {
             $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Query error)";
-            $this->errorLog();
+            $this->err_handler();
         }
     }
 
@@ -296,7 +296,7 @@ class Mdb
     }
 
 
-    public function errorLog()
+    public function err_handler()
     {
         $msg = date('d-m-Y H:i:s') ."\n";
         foreach ($this->err as $error) {
