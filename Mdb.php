@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Author: el-ma
  */
 
-class Mdb implements MDatabase
+class Mdb
 {
     private $host;
     private $port;
@@ -305,18 +305,5 @@ class Mdb implements MDatabase
 
         show_error($msg, 500, $heading = 'An Error Was Encountered');
     }
-
-}
-
-
-
-interface MDatabase
-{
-    public function connect();
-    public function insert($collection,$data);
-    public function update($collection,$data,$filter,$options);
-    public function delete($collection,$filter,$deleteAll);
-    public function num_rows();
-    public function query($collection,$filter,$options);
 
 }
