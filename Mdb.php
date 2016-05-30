@@ -48,7 +48,7 @@ class Mdb
             }
             return $this;
         } catch (Exception $e) {
-            $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Connection error)";
+            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>'Connection error'];
             $this->err_handler();
         }
     }
@@ -108,7 +108,7 @@ class Mdb
             return TRUE;
 
         } catch(Exception $e) {
-            $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Insert error)";
+            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>'Could not inserted'];
             $this->err_handler();
         }
     }
@@ -135,7 +135,7 @@ class Mdb
             return $result->getModifiedCount();
 
         } catch(Exception $e) {
-            $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Update error)";
+            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>'Could not updated'];
             $this->err_handler();
         }
     }
@@ -152,7 +152,7 @@ class Mdb
             return $result->getDeletedCount();
 
         } catch(Exception $e) {
-            $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Delete error)";
+            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>'Could not deleted'];
             $this->err_handler();
         }
     }
@@ -179,7 +179,7 @@ class Mdb
           return $result->getInsertedCount();
 
       } catch(Exception $e) {
-          $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Insert error)";
+          $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>'Data set could not inserted'];
           $this->err_handler();
       }
     }
@@ -195,11 +195,11 @@ class Mdb
     {
         try{
             if(!is_array($filter)){
-              throw new Exception("Second parameter is not an array");
+              throw new Exception("Query filter is invalid");
             }
 
             if(!is_array($options)){
-              throw new Exception("Third parameter is not an array");
+              throw new Exception("Query options are invalid");
             }
 
             $query = new MongoDB\Driver\Query($filter, $options);
@@ -207,7 +207,7 @@ class Mdb
             return $this;
         }catch (Exception $e)
         {
-            $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Query error)";
+            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>'Query could not be executed'];
             $this->err_handler();
         }
     }
@@ -236,7 +236,7 @@ class Mdb
             return $this;
         }catch (Exception $e)
         {
-            $this->err[] = "At line ".$e->getLine()." an error occured. " . $e->getMessage(). ". (Query error)";
+            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>'Query could not be executed'];
             $this->err_handler();
         }
     }
@@ -318,7 +318,7 @@ class Mdb
     {
         $msg = date('d-m-Y H:i:s') ."\n";
         foreach ($this->err as $error) {
-            $msg .= " - ".$error."\n";
+            $msg .= " - ".implode(' | ', $error)." \n";
         }
 
         show_error($msg, 500, $heading = 'An Error Was Encountered');
