@@ -12,7 +12,7 @@ Codeigniter 3.x Mongodb 3.x Driver (Php5 / Php7)
 ### Switch between databases
 It will be created if does not exists, otherwise it will be switched to another database
     
-    $this->mdb->selectDb($db);
+    $this->mdb->select_db($db);
 	
 
 ### Insert
