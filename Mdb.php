@@ -42,7 +42,7 @@ class Mdb
     {
         try {
             if ($this->connString === null) {
-                $this->conn = new MongoDB\Driver\Manager("mongodb://" . $this->user . ":" . $this->password . "@" . $this->host . ":" . $this->port . "/" . $this->dbname);
+                $this->conn = new MongoDB\Driver\Manager($this->conn_str());
             } else {
                 $this->conn = new MongoDB\Driver\Manager($this->connString);
             }
@@ -52,9 +52,27 @@ class Mdb
             $this->err_handler();
         }
     }
+    
+    public function conn_str()
+    {
+        $str = "mongodb://";
+        if(isset($this->user) && isset($this->password))
+        {
+            $str .= $this->user . ":" . $this->password;
+        }
+        
+        $str .= "@" . $this->host . ":" . $this->port;
+        
+        if(isset($this->dbname))
+        {
+            $str .= "/" . $this->dbname;
+        }
+        
+        return $str;
+    }
 
     /**
-     * If you have access permission on the $db, you can change your db
+     * it will be created if does not exists, otherwise is switched to another database
      * @param string $db
      * @return $this
      */
