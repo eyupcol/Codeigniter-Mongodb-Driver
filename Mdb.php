@@ -76,7 +76,7 @@ class Mdb
      * @param string $db
      * @return $this
      */
-    public function selectDb($db)
+    public function select_db($db)
     {
         $this->dbname = $db;
         return $this;
