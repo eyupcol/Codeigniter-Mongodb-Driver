@@ -24,15 +24,22 @@ class Mdb
 
     private $getOptions = array();
     private $where;
+    private $lang=null;
 
 
-    public function __construct(){
+    public function __construct($active_language=null){
         $CI =& get_instance();
         $CI->config->load('mongo');
         $settings = $CI->config->item('mongo');
+        $CI->lang->load('mongo');
+        $this->lang =& $CI->lang;
+
         if(isset($settings) && is_array($settings)){
             foreach($settings as $k=>$v){
+              if(trim($v) !== '' || $v != null)
+              {
                 $this->{$k} = trim($v);
+              }
             }
         }
         $this->connect();
@@ -41,18 +48,19 @@ class Mdb
     public function connect()
     {
         try {
-            if ($this->connString === null) {
+            if ($this->connString === null)
+            {
                 $this->conn = new MongoDB\Driver\Manager($this->conn_str());
             } else {
                 $this->conn = new MongoDB\Driver\Manager($this->connString);
             }
             return $this;
         } catch (Exception $e) {
-            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>'Connection error'];
+            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>$this->lang->line('mongo_connection_error')];
             $this->err_handler();
         }
     }
-    
+
     public function conn_str()
     {
         $str = "mongodb://";
@@ -60,15 +68,15 @@ class Mdb
         {
             $str .= $this->user . ":" . $this->password;
         }
-        
+
         $str .= "@" . $this->host . ":" . $this->port;
-        
+
         if(isset($this->dbname))
         {
             $str .= "/" . $this->dbname;
         }
-        
-        return $str;
+
+        return (string) $str;
     }
 
     /**
@@ -90,8 +98,8 @@ class Mdb
     public function insert($collection,$data)
     {
         try {
-            if(!is_array($data)){
-                throw new Exception('Invalid data.');
+            if(!is_array($data) || count($data) == 0){
+                throw new Exception($this->lang->line('mongo_invalid_data'));
             }
 
             $bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
@@ -108,7 +116,7 @@ class Mdb
             return TRUE;
 
         } catch(Exception $e) {
-            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>'Could not inserted'];
+            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>$this->lang->line('mongo_insert_error')];
             $this->err_handler();
         }
     }
@@ -135,7 +143,7 @@ class Mdb
             return $result->getModifiedCount();
 
         } catch(Exception $e) {
-            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>'Could not updated'];
+            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>$this->lang->line('mongo_update_error')];
             $this->err_handler();
         }
     }
@@ -152,7 +160,7 @@ class Mdb
             return $result->getDeletedCount();
 
         } catch(Exception $e) {
-            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>'Could not deleted'];
+            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>$this->lang->line('mongo_delete_error')];
             $this->err_handler();
         }
     }
@@ -164,8 +172,9 @@ class Mdb
     public function insert_batch($collection, $data)
     {
       try {
-          if(!is_array($data)){
-              throw new Exception('Invalid data.');
+          if(!is_array($data) || count($data) == 0)
+          {
+              throw new Exception($this->lang->line('mongo_invalid_data'));
           }
 
           $bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
@@ -179,7 +188,7 @@ class Mdb
           return $result->getInsertedCount();
 
       } catch(Exception $e) {
-          $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>'Data set could not inserted'];
+          $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>$this->lang->line('mongo_insert_batch_error')];
           $this->err_handler();
       }
     }
@@ -195,11 +204,11 @@ class Mdb
     {
         try{
             if(!is_array($filter)){
-              throw new Exception("Query filter is invalid");
+              throw new Exception($this->lang->line('mongo_invalid_query_filter'));
             }
 
             if(!is_array($options)){
-              throw new Exception("Query options are invalid");
+              throw new Exception($this->lang->line('mongo_invalid_query_options'));
             }
 
             $query = new MongoDB\Driver\Query($filter, $options);
@@ -207,7 +216,7 @@ class Mdb
             return $this;
         }catch (Exception $e)
         {
-            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>'Query could not be executed'];
+            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>$this->lang->line('mongo_query_error')];
             $this->err_handler();
         }
     }
@@ -236,7 +245,7 @@ class Mdb
             return $this;
         }catch (Exception $e)
         {
-            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>'Query could not be executed'];
+            $this->err[] = ['line'=>$e->getLine(), 'msg'=>$e->getMessage(), 'method'=>__METHOD__, 'custom_message'=>$this->lang->line('mongo_query_error')];
             $this->err_handler();
         }
     }
@@ -316,7 +325,7 @@ class Mdb
 
     public function err_handler()
     {
-        $msg = date('d-m-Y H:i:s') ."\n";
+        $msg = date('d-m-Y H:i:s') .":\n";
         foreach ($this->err as $error) {
             $msg .= " - ".implode(' | ', $error)." \n";
         }
