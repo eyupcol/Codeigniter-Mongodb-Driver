@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 * https://github.com/el-ma/Codeigniter-Mongodb-Driver
 */
 
+$lang['mongo_php_extension_not_installed'] = 'Mongodb Php Extension is not installed';
 $lang['mongo_invalid_data'] = 'Invalid Data';
 $lang['mongo_connection_error'] = 'Connection Error';
 $lang['mongo_insert_error'] = 'Could not inserted';
