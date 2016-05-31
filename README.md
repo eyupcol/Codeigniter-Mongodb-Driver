@@ -88,7 +88,7 @@ Delete all documents in a collection (empty table):
         plum
         fig
         
-##### The number of results num_rows():
+##### The number of results:
 
 	$this->mdb->get('collection')->num_rows(); // returns interger results number
 	
@@ -119,7 +119,7 @@ limit($limit,$offset=0) $limit: the number of results will be shown, $offset: th
 	$this->mdb->order_by(array('id'=>-1, 'price'=>-1));
 	
 ##### Select
-If you want to select some field from your collection, you can use select() function.
+If you want to select some fields from your collection, you can use select() function.
 	
 	$this->mdb->select($fields);
 	$this->mdb->select(array('name','price','amount'));
