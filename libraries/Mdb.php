@@ -48,7 +48,7 @@ class Mdb
     public function connect()
     {
         try {
-            if(!class_exists(MongoDB\Driver\Manager))
+            if(!class_exists('MongoDB\Driver\Manager'))
             {
               throw new Exeption($this->lang->line('mongo_php_extension_not_installed'));
             }
