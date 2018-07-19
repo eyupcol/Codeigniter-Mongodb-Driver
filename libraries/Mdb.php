@@ -50,7 +50,7 @@ class Mdb
         try {
             if(!class_exists('MongoDB\Driver\Manager'))
             {
-              throw new Exeption($this->lang->line('mongo_php_extension_not_installed'));
+              throw new Exception($this->lang->line('mongo_php_extension_not_installed'));
             }
             if ($this->connString === null)
             {
