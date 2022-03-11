@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Mongodb Codeigniter Driver v1.0
  * Versions: CI 3.X , Mongodb 3.2+ (also can be used with CI 2.X) , PHP 5 and PHP 7
- * Author: el-ma
+ * Author: eyupcol
  */
 
 class Mdb
