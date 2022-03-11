@@ -1,4 +1,4 @@
-Codeigniter Mongodb Driver - github.com/el-ma/Codeigniter-Mongodb-Driver
+Codeigniter Mongodb Driver - github.com/eyupcol/Codeigniter-Mongodb-Driver
 
 Copyright (C) <2016>  <contributors>
 
