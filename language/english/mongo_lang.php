@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
-* https://github.com/el-ma/Codeigniter-Mongodb-Driver
+* https://github.com/eyupcol/Codeigniter-Mongodb-Driver
 */
 
 $lang['mongo_php_extension_not_installed'] = 'Mongodb Php Extension is not installed';
